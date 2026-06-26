@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RadioVille | Navigation & Anti-Jamming Total Solution Provider</title>
+<meta name="description" content="RadioVille - A total solution provider for special-purpose navigation and anti-jamming, leading the global aerospace and defense industry.">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.hero{height:100vh;min-height:680px;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:"";position:absolute;inset:0;background:
+   radial-gradient(1200px 600px at 76% 18%,rgba(42,164,212,.2),transparent 60%),
+   radial-gradient(900px 700px at 8% 92%,rgba(20,80,163,.4),transparent 60%),
+   linear-gradient(135deg,#051730 0%,#07203f 46%,#0a3a72 105%)}
+.hero-grid{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);background-size:62px 62px;animation:drift 34s linear infinite}
+@keyframes drift{to{background-position:62px 62px}}
+.orbit{position:absolute;border:1px solid rgba(42,164,212,.22);border-radius:50%}
+.orbit.o1{width:560px;height:560px;right:-110px;top:9%;animation:spin 60s linear infinite}
+.orbit.o2{width:860px;height:860px;right:-260px;top:-10%;animation:spin 95s linear infinite reverse}
+.orbit .sat{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent);top:-6px;left:50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-inner{position:relative;z-index:2;color:#fff}
+.hero .tag{display:inline-block;font-size:13.5px;letter-spacing:3px;font-weight:600;color:var(--accent);border:1px solid rgba(42,164,212,.5);padding:8px 18px;border-radius:30px;margin-bottom:26px;text-transform:uppercase}
+.hero h1{font-size:50px;font-weight:800;line-height:1.22;letter-spacing:-1.4px;margin-bottom:24px;opacity:0;transform:translateY(28px);animation:rise .9s .15s forwards}
+.hero h1 b{font-weight:800;background:linear-gradient(90deg,#74d6f5,#3f8eef);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:19px;font-weight:400;color:rgba(255,255,255,.8);max-width:640px;opacity:0;transform:translateY(28px);animation:rise .9s .4s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero-cta{margin-top:38px;display:flex;gap:14px;opacity:0;animation:rise .9s .65s forwards}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:2px;text-align:center}
+.hero-scroll .mouse{width:24px;height:38px;border:2px solid rgba(255,255,255,.45);border-radius:14px;margin:0 auto 8px;position:relative}
+.hero-scroll .mouse::after{content:"";position:absolute;width:4px;height:8px;background:#fff;border-radius:3px;left:50%;top:7px;transform:translateX(-50%);animation:wheel 1.5s infinite}
+@keyframes wheel{0%{opacity:1;top:7px}100%{opacity:0;top:18px}}
+.biz{background:var(--light)}
+.biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.biz-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(7,32,63,.06);transition:.35s}
+.biz-card:hover{transform:translateY(-10px);box-shadow:0 22px 50px rgba(7,32,63,.15)}
+.biz-card .top{height:170px;position:relative;display:grid;place-items:center;color:#fff;overflow:hidden}
+.biz-card.c1 .top{background:linear-gradient(135deg,#07203f,#1450a3)}
+.biz-card.c2 .top{background:linear-gradient(135deg,#0a2c4f,#0d7e9c)}
+.biz-card.c3 .top{background:linear-gradient(135deg,#10284c,#4a3aa8)}
+.biz-card .top svg{width:60px;height:60px;opacity:.95;position:relative;z-index:1}
+.biz-card .top .num{position:absolute;right:18px;bottom:4px;font-size:78px;font-weight:900;color:rgba(255,255,255,.12);line-height:1}
+.biz-card .body{padding:30px 28px 34px}
+.biz-card .body .en{font-size:12.5px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;text-transform:uppercase}
+.biz-card .body h3{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:13px}
+.biz-card .body p{font-size:14.5px;color:var(--gray);line-height:1.7}
+.about{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.about::before{content:"";position:absolute;right:-200px;top:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(42,164,212,.14),transparent 70%)}
+.about-flex{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center;position:relative;z-index:1}
+.about-flex .label{font-size:13.5px;font-weight:700;letter-spacing:4px;color:var(--accent);margin-bottom:17px;display:block;text-transform:uppercase}
+.about-flex h2{font-size:38px;font-weight:800;line-height:1.3;letter-spacing:-1px;margin-bottom:24px}
+.about-flex h2 span{color:var(--accent)}
+.about-flex .desc{font-size:16px;color:rgba(255,255,255,.76);font-weight:400;line-height:1.9;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:30px 26px}
+.stat .n{font-size:43px;font-weight:800;color:#fff;line-height:1}
+.stat .n .u{font-size:21px;color:var(--accent)}
+.stat .t{margin-top:11px;font-size:14px;color:rgba(255,255,255,.68)}
+.rnd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.rnd-item{text-align:center;padding:40px 20px;border-radius:14px;border:1px solid var(--line);transition:.3s}
+.rnd-item:hover{border-color:var(--blue);box-shadow:0 14px 34px rgba(20,80,163,.12);transform:translateY(-6px)}
+.rnd-item .ic{width:72px;height:72px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:var(--light);color:var(--blue);transition:.3s}
+.rnd-item:hover .ic{background:var(--blue);color:#fff}
+.rnd-item .ic svg{width:32px;height:32px}
+.rnd-item h4{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.rnd-item p{font-size:13.5px;color:var(--gray)}
+.news{background:var(--light)}
+.news-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:46px}
+.news-head .label{font-size:13.5px;font-weight:700;letter-spacing:4px;color:var(--blue);display:block;margin-bottom:13px;text-transform:uppercase}
+.news-head h2{font-size:36px;font-weight:800;color:var(--navy);letter-spacing:-1px}
+.news-head a{font-weight:600;color:var(--navy);display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.news-head a:hover{color:var(--blue);gap:13px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.news-card{background:#fff;border-radius:14px;padding:34px 30px 28px;transition:.35s;border:1px solid transparent;display:block}
+.news-card:hover{transform:translateY(-8px);box-shadow:0 20px 44px rgba(7,32,63,.13);border-color:var(--line)}
+.news-card .cat{display:inline-block;font-size:12px;font-weight:600;color:var(--blue);background:rgba(20,80,163,.08);padding:5px 13px;border-radius:20px;margin-bottom:20px}
+.news-card h3{font-size:17px;font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:16px;min-height:78px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-card:hover h3{color:var(--blue)}
+.news-card .date{font-size:13.5px;color:var(--gray);font-weight:500;padding-top:17px;border-top:1px solid var(--line)}
+.clients{background:#fff;padding:88px 0}
+.clients h3{text-align:center;font-size:14px;letter-spacing:3px;font-weight:600;color:var(--gray);text-transform:uppercase;margin-bottom:44px}
+.client-row{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 22px}
+.client-row .cli{padding:18px 30px;border:1px solid var(--line);border-radius:10px;font-weight:700;color:#9aa6b6;font-size:17px;letter-spacing:.5px;transition:.3s;min-width:148px;text-align:center}
+.client-row .cli:hover{color:var(--navy);border-color:var(--blue);background:var(--light)}
+.cta-banner{background:linear-gradient(120deg,var(--blue),var(--navy));color:#fff;padding:88px 0;text-align:center;position:relative;overflow:hidden}
+.cta-banner::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:48px 48px}
+.cta-banner .container{position:relative;z-index:1}
+.cta-banner h2{font-size:35px;font-weight:800;margin-bottom:17px;letter-spacing:-1px}
+.cta-banner p{font-size:17px;color:rgba(255,255,255,.82);margin-bottom:32px;font-weight:400}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container nav-inner">
+    <a href="index-en.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#rvg)"/><circle cx="13" cy="27" r="3.1" fill="#fff"/><path d="M20 27 A7 7 0 0 0 13 20" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/><path d="M25 27 A12 12 0 0 0 13 15" stroke="#bfeaff" stroke-width="2.3" stroke-linecap="round"/><path d="M30 27 A17 17 0 0 0 13 10" stroke="#7fd2f2" stroke-width="2.3" stroke-linecap="round"/><defs><linearGradient id="rvg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#2aa4d4"/><stop offset="1" stop-color="#1450a3"/></linearGradient></defs></svg>
+      <span class="logo-text"><span class="en">RadioVille</span><span class="ko">레디오빌</span></span>
+    </a>
+    <nav>
+      <ul class="gnb">
+        <li><a href="index-en.html#about">Company</a></li>
+        <li><a href="index-en.html#biz">Business</a></li>
+        <li><a href="index-en.html#rnd">R&amp;D</a></li>
+        <li><a href="index-en.html#news">Investors</a></li>
+        <li><a href="index-en.html#news">News</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><a href="index.html">KOR</a><span>|</span><a href="index-en.html" class="on">ENG</a></div>
+      <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="close" id="closeBtn">&times;</button>
+  <ul>
+    <li><a href="#about">Company</a></li><li><a href="#biz">Business</a></li>
+    <li><a href="#rnd">R&amp;D</a></li><li><a href="#news">Investors</a></li>
+    <li><a href="#news">News</a></li><li><a href="index.html">한국어</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"><div class="hero-grid"></div><div class="orbit o1"><span class="sat"></span></div><div class="orbit o2"><span class="sat"></span></div></div>
+  <div class="container hero-inner">
+    <span class="tag">Navigation · Anti-Jamming</span>
+    <h1>Special-Purpose Navigation &amp;<br><b>Anti-Jamming Total Solutions</b></h1>
+    <p>RadioVille leads the global aerospace and defense industry with precision PNT and anti-jamming technologies that safeguard mission-critical operations.</p>
+    <div class="hero-cta">
+      <a href="#biz" class="btn btn-primary">Explore Business →</a>
+      <a href="#about" class="btn btn-ghost">About Us</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="mouse"></div>SCROLL</div>
+</section>
+
+<section class="sec biz" id="biz">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label">What we do</span>
+      <h2>Our Business Areas</h2>
+      <p>Total PNT (Positioning · Navigation · Timing) solutions across defense, space and commercial sectors</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card c1">
+        <div class="top"><span class="num">01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L3 7v6c0 5 3.8 8.4 9 9 5.2-.6 9-4 9-9V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="body"><div class="en">Defense</div><h3>Defense</h3><p>Special-purpose navigation devices and anti-jamming solutions for precision-guided weapons, UAVs and tactical platforms that protect national security.</p></div>
+      </div>
+      <div class="biz-card c2">
+        <div class="top"><span class="num">02</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div>
+        <div class="body"><div class="en">Space</div><h3>Space</h3><p>GNSS precision navigation and Korean Positioning System (KPS) components, including satellite GNSS receivers for the Nuri launch vehicle program.</p></div>
+      </div>
+      <div class="biz-card c3">
+        <div class="top"><span class="num">03</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor"/></svg></div>
+        <div class="body"><div class="en">Commercial</div><h3>Commercial</h3><p>High-reliability GNSS antennas and precision timing solutions for autonomous driving, telecom networks and smart industrial infrastructure.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec about" id="about">
+  <div class="container about-flex">
+    <div>
+      <span class="label">Who we are</span>
+      <h2>Leading the Global Aerospace<br>&amp; Defense Industry</h2>
+      <p class="desc">RadioVille is a total solution provider for special-purpose navigation and anti-jamming. Built on core PNT technologies, we support national security and future industries across the defense, space and commercial sectors.</p>
+      <p class="desc">Through relentless R&amp;D and a spirit of challenge, we are growing into a trusted global navigation technology company.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">99.9<span class="u">%</span></div><div class="t">Anti-jamming signal reliability</div></div>
+      <div class="stat"><div class="n">120<span class="u">+</span></div><div class="t">Patents &amp; certifications</div></div>
+      <div class="stat"><div class="n">15<span class="u">yrs</span></div><div class="t">Precision navigation expertise</div></div>
+      <div class="stat"><div class="n">30<span class="u">+</span></div><div class="t">Defense &amp; space partners</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec rnd" id="rnd">
+  <div class="container">
+    <div class="sec-head"><span class="label">R&amp;D</span><h2>Core Technology Capabilities</h2><p>We hold world-class proprietary navigation and anti-jamming technologies</p></div>
+    <div class="rnd-grid">
+      <div class="rnd-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a7 7 0 0 1 7 7c0 3-2 5-3.5 6.5L14 22h-4l-1.5-6.5C7 14 5 12 5 9a7 7 0 0 1 7-7z"/></svg></div><h4>Anti-Jamming</h4><p>Adaptive beamforming based<br>jamming countermeasures</p></div>
+      <div class="rnd-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h4>Precision Timing</h4><p>Nanosecond-level time<br>synchronization &amp; clocks</p></div>
+      <div class="rnd-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div><h4>GNSS Receivers</h4><p>Multi-band satellite<br>navigation processing</p></div>
+      <div class="rnd-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Inertial Nav (INS)</h4><p>GNSS-fused integrated<br>navigation algorithms</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec news" id="news">
+  <div class="container">
+    <div class="news-head"><div><span class="label">News &amp; Updates</span><h2>Latest News</h2></div><a href="#news">View all →</a></div>
+    <div class="news-grid">
+      <a class="news-card"><span class="cat">Press</span><h3>RadioVille signs MOU on navigation solutions for large-scale drone industry</h3><div class="date">2026.06.22</div></a>
+      <a class="news-card"><span class="cat">IR</span><h3>RadioVille files for KOSDAQ listing via technology special review</h3><div class="date">2026.01.13</div></a>
+      <a class="news-card"><span class="cat">Business</span><h3>Supply contract completed for precision satellite GNSS receivers on Nuri</h3><div class="date">2025.12.03</div></a>
+      <a class="news-card"><span class="cat">Tech</span><h3>Next-gen anti-jamming antenna module earns defense reliability certification</h3><div class="date">2025.11.18</div></a>
+      <a class="news-card"><span class="cat">Patent</span><h3>Three domestic and international patents registered for adaptive beamforming</h3><div class="date">2025.10.07</div></a>
+      <a class="news-card"><span class="cat">Notice</span><h3>Selected as a partner for the Korean Positioning System (KPS) pilot program</h3><div class="date">2025.09.25</div></a>
+    </div>
+  </div>
+</section>
+
+<section class="clients">
+  <div class="container">
+    <h3>Our Partners &amp; Clients</h3>
+    <div class="client-row"><div class="cli">DEFENSE</div><div class="cli">AEROSPACE</div><div class="cli">ADD</div><div class="cli">KARI</div><div class="cli">ARMY</div><div class="cli">NAVY</div><div class="cli">AIR FORCE</div><div class="cli">KPS</div></div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2>RadioVille, the Center of Future Navigation</h2>
+    <p>Get in touch for precision navigation and anti-jamming solutions</p>
+    <a href="mailto:contact@radioville.co.kr" class="btn btn-primary">Contact Us →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo logo">
+          <svg class="logo-mark" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#rvf)"/><circle cx="13" cy="27" r="3.1" fill="#fff"/><path d="M20 27 A7 7 0 0 0 13 20" stroke="#fff" stroke-width="2.3" stroke-linecap="round"/><path d="M25 27 A12 12 0 0 0 13 15" stroke="#bfeaff" stroke-width="2.3" stroke-linecap="round"/><path d="M30 27 A17 17 0 0 0 13 10" stroke="#7fd2f2" stroke-width="2.3" stroke-linecap="round"/><defs><linearGradient id="rvf" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#2aa4d4"/><stop offset="1" stop-color="#1450a3"/></linearGradient></defs></svg>
+          <span class="logo-text"><span class="en">RadioVille</span><span class="ko">레디오빌</span></span>
+        </div>
+        <p class="addr">Navigation · Anti-Jamming Total Solution Provider<br>
+        RadioVille Co., Ltd. | CEO Minjun Kim<br>
+        123 Techno-ro, Yuseong-gu, Daejeon, Republic of Korea<br>
+        Business Reg. No. 123-45-67890</p>
+      </div>
+      <div class="foot-col"><h5>Company</h5><ul><li><a href="index.html">About</a></li><li><a href="index.html">Business</a></li><li><a href="#rnd">R&amp;D</a></li><li><a href="#clients">Clients</a></li></ul></div>
+      <div class="foot-col"><h5>Information</h5><ul><li><a href="#news">Investors</a></li><li><a href="#news">News</a></li><li><a href="#news">Careers</a></li><li><a href="#">Ethics</a></li></ul></div>
+      <div class="foot-col"><h5>Contact</h5><ul><li><a href="tel:0428888000">TEL. +82-42-888-8000</a></li><li><a href="mailto:contact@radioville.co.kr">contact@radioville.co.kr</a></li><li><a href="#">Location</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <div class="links"><a href="#">Privacy Policy</a><a href="#">Email Collection Refusal</a><a href="#">Terms</a></div>
+      <div class="copy">© 2026 RADIOVILLE Co., Ltd. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
