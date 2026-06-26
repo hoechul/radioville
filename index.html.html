@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>레디오빌 | RADIOVILLE — 항법·통신 방산 솔루션</title>
+<meta name="description" content="레디오빌(RADIOVILLE)은 항공우주·국방 분야의 항법, 통신, 정보통신기기 솔루션을 개발·제조하는 방산 전문기업입니다." />
+<style>
+  /* ===== Fonts ===== */
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root{
+    --ink:        #0a1622;   /* 기본 배경(딥 네이비) */
+    --ink-2:      #0e1f31;   /* 한 단계 밝은 패널 */
+    --ink-3:      #14283d;   /* 카드 */
+    --steel:      #8fa6bf;   /* 보조 텍스트(스틸블루) */
+    --line:       #1d3247;   /* 헤어라인 */
+    --paper:      #eef2f6;   /* 라이트 섹션 배경 */
+    --paper-ink:  #0a1622;   /* 라이트 섹션 위 텍스트 */
+    --signal:     #34e0c4;   /* 시그널 액센트(레이더) */
+    --signal-dim: #1c8f7e;
+    --amber:      #f0b03a;   /* 보조 액센트(상태/경보) */
+    --white:      #f7fafc;
+    --maxw: 1180px;
+    --display: 'Space Grotesk', 'Pretendard', sans-serif;
+    --body: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:var(--body);
+    background:var(--ink);
+    color:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  ::selection{ background:var(--signal); color:var(--ink); }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+
+  /* 공통 라벨(eyebrow) */
+  .eyebrow{
+    font-family:var(--display);
+    font-size:.74rem; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--signal); display:inline-flex; align-items:center; gap:.6rem;
+    margin-bottom:1.1rem;
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--signal); display:inline-block; }
+
+  h2.sec-title{
+    font-family:var(--display);
+    font-weight:600; font-size:clamp(1.7rem,3.4vw,2.6rem);
+    letter-spacing:-.01em; line-height:1.15;
+  }
+  .sec-title .ko{ font-family:var(--body); font-weight:700; }
+
+  /* ============ HEADER ============ */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:50;
+    backdrop-filter:blur(8px);
+    background:rgba(10,22,34,.55);
+    border-bottom:1px solid transparent;
+    transition:background .35s, border-color .35s;
+  }
+  header.scrolled{ background:rgba(10,22,34,.92); border-bottom-color:var(--line); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .brand{ display:flex; align-items:center; gap:.65rem; font-family:var(--display); font-weight:700; letter-spacing:.04em; font-size:1.18rem; }
+  .brand .dot{
+    width:11px; height:11px; border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 0 4px rgba(52,224,196,.18), 0 0 14px var(--signal);
+    animation:pulse 2.6s infinite;
+  }
+  @keyframes pulse{ 0%,100%{box-shadow:0 0 0 4px rgba(52,224,196,.18),0 0 14px var(--signal);} 50%{box-shadow:0 0 0 8px rgba(52,224,196,0),0 0 22px var(--signal);} }
+  .brand small{ color:var(--steel); font-family:var(--body); font-weight:500; font-size:.66rem; letter-spacing:.18em; }
+  nav ul{ display:flex; gap:2rem; list-style:none; font-size:.92rem; font-weight:500; }
+  nav ul a{ color:var(--steel); transition:color .2s; position:relative; padding:4px 0; }
+  nav ul a:hover{ color:var(--white); }
+  nav ul a::after{ content:""; position:absolute; left:0; bottom:-2px; width:0; height:1.5px; background:var(--signal); transition:width .25s; }
+  nav ul a:hover::after{ width:100%; }
+  .nav-cta{ font-family:var(--display); font-size:.82rem; letter-spacing:.06em; border:1px solid var(--line); padding:.55rem 1.1rem; border-radius:2px; color:var(--white); transition:.2s; }
+  .nav-cta:hover{ border-color:var(--signal); color:var(--signal); }
+  .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; }
+  .burger span{ width:24px; height:2px; background:var(--white); transition:.3s; }
+
+  /* ============ HERO ============ */
+  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; }
+  .hero-grid{
+    position:absolute; inset:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    opacity:.25; mask-image:radial-gradient(circle at 70% 50%,#000 0%,transparent 75%);
+  }
+  /* 레이더 시그니처 */
+  .radar{
+    position:absolute; right:-120px; top:50%; transform:translateY(-50%);
+    width:760px; height:760px; pointer-events:none; opacity:.9;
+  }
+  .radar .ring{ fill:none; stroke:var(--line); stroke-width:1; }
+  .radar .ring.hot{ stroke:rgba(52,224,196,.35); }
+  .radar .cross{ stroke:var(--line); stroke-width:1; }
+  .radar .sweep{ transform-origin:380px 380px; animation:sweep 5s linear infinite; }
+  @keyframes sweep{ to{ transform:rotate(360deg); } }
+  .radar .blip{ fill:var(--signal); opacity:0; animation:blip 5s linear infinite; }
+  .radar .blip.b2{ animation-delay:1.7s; }
+  .radar .blip.b3{ animation-delay:3.3s; }
+  @keyframes blip{ 0%,8%{opacity:1} 45%,100%{opacity:0} }
+
+  .hero-inner{ position:relative; z-index:2; max-width:760px; }
+  .hero .tag{ font-family:var(--display); letter-spacing:.3em; font-size:.78rem; color:var(--signal); text-transform:uppercase; margin-bottom:1.6rem; opacity:0; transform:translateY(14px); animation:rise .8s .15s forwards; }
+  .hero h1{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2.6rem,6.6vw,5.2rem); line-height:1.02; letter-spacing:-.02em;
+    opacity:0; transform:translateY(20px); animation:rise .9s .3s forwards;
+  }
+  .hero h1 .accent{ color:var(--signal); }
+  .hero .sub{
+    margin-top:1.6rem; font-size:clamp(1rem,1.6vw,1.22rem); color:var(--steel); max-width:560px;
+    opacity:0; transform:translateY(20px); animation:rise .9s .5s forwards;
+  }
+  .hero-actions{ margin-top:2.4rem; display:flex; gap:1rem; flex-wrap:wrap; opacity:0; transform:translateY(20px); animation:rise .9s .7s forwards; }
+  @keyframes rise{ to{opacity:1; transform:none;} }
+  .btn{ font-family:var(--display); font-size:.92rem; letter-spacing:.04em; padding:.95rem 1.7rem; border-radius:2px; transition:.22s; display:inline-flex; align-items:center; gap:.6rem; }
+  .btn-primary{ background:var(--signal); color:var(--ink); font-weight:600; }
+  .btn-primary:hover{ box-shadow:0 0 24px rgba(52,224,196,.4); transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--white); }
+  .btn-ghost:hover{ border-color:var(--signal); color:var(--signal); }
+
+  .hero-strip{ position:absolute; left:0; right:0; bottom:0; z-index:2; border-top:1px solid var(--line); background:rgba(10,22,34,.4); }
+  .hero-strip .wrap{ display:flex; flex-wrap:wrap; gap:2rem 3.5rem; padding-top:1.1rem; padding-bottom:1.1rem; }
+  .hero-strip .it{ display:flex; flex-direction:column; }
+  .hero-strip .it b{ font-family:var(--display); font-size:1.5rem; color:var(--white); }
+  .hero-strip .it span{ font-size:.78rem; color:var(--steel); letter-spacing:.08em; }
+
+  /* ============ SECTION base ============ */
+  section{ padding:120px 0; position:relative; }
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s, transform .7s; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ABOUT */
+  .about{ background:linear-gradient(180deg,var(--ink),var(--ink-2)); }
+  .about-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:4rem; align-items:center; }
+  .about p.lead{ font-size:1.18rem; color:var(--white); margin:1.4rem 0; line-height:1.7; }
+  .about p.body{ color:var(--steel); margin-bottom:1rem; }
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .stat{ background:var(--ink-2); padding:2rem 1.6rem; }
+  .stat b{ font-family:var(--display); font-size:2.3rem; color:var(--signal); display:block; line-height:1; }
+  .stat span{ display:block; margin-top:.6rem; color:var(--steel); font-size:.86rem; letter-spacing:.04em; }
+
+  /* BUSINESS */
+  .biz-head{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3.2rem; }
+  .biz-head p{ color:var(--steel); max-width:420px; }
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
+  .card{
+    background:var(--ink-3); border:1px solid var(--line); padding:2.4rem;
+    position:relative; overflow:hidden; transition:.3s; border-radius:3px;
+  }
+  .card::before{ content:""; position:absolute; left:0; top:0; height:100%; width:3px; background:var(--signal); transform:scaleY(0); transform-origin:top; transition:transform .3s; }
+  .card:hover{ transform:translateY(-4px); border-color:#2a4a68; }
+  .card:hover::before{ transform:scaleY(1); }
+  .card .num{ font-family:var(--display); color:var(--signal-dim); font-size:.8rem; letter-spacing:.2em; }
+  .card .ic{ width:46px; height:46px; margin:1rem 0 1.4rem; color:var(--signal); }
+  .card h3{ font-size:1.25rem; margin-bottom:.7rem; font-weight:700; }
+  .card p{ color:var(--steel); font-size:.95rem; }
+  .card ul{ margin-top:1.1rem; list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; }
+  .card ul li{ font-size:.74rem; color:var(--steel); border:1px solid var(--line); padding:.28rem .7rem; border-radius:2px; letter-spacing:.03em; }
+
+  /* RND (light) */
+  .rnd{ background:var(--paper); color:var(--paper-ink); }
+  .rnd .eyebrow{ color:var(--signal-dim); }
+  .rnd .eyebrow::before{ background:var(--signal-dim); }
+  .rnd .sec-title{ color:var(--paper-ink); }
+  .rnd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; margin-top:3rem; }
+  .rnd-list{ display:flex; flex-direction:column; }
+  .rnd-item{ border-top:1px solid #d3dce4; padding:1.7rem 0; display:grid; grid-template-columns:48px 1fr; gap:1.4rem; }
+  .rnd-item:last-child{ border-bottom:1px solid #d3dce4; }
+  .rnd-item .k{ font-family:var(--display); color:var(--signal-dim); font-weight:600; }
+  .rnd-item h4{ font-size:1.1rem; margin-bottom:.4rem; }
+  .rnd-item p{ color:#516072; font-size:.93rem; }
+  .rnd-panel{ background:var(--ink); border-radius:4px; padding:2.6rem; position:sticky; top:96px; }
+  .rnd-panel h3{ color:var(--white); font-family:var(--display); margin-bottom:1.2rem; }
+  .meter{ margin-bottom:1.2rem; }
+  .meter .lab{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--steel); margin-bottom:.4rem; }
+  .meter .bar{ height:5px; background:var(--ink-3); border-radius:4px; overflow:hidden; }
+  .meter .bar i{ display:block; height:100%; background:linear-gradient(90deg,var(--signal-dim),var(--signal)); width:0; transition:width 1.2s ease; }
+
+  /* CERT */
+  .cert .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:3rem; }
+  .cert .c{ background:var(--ink-2); padding:2rem 1.4rem; text-align:center; }
+  .cert .c .b{ font-family:var(--display); color:var(--signal); font-weight:600; letter-spacing:.04em; margin-bottom:.5rem; }
+  .cert .c span{ color:var(--steel); font-size:.82rem; }
+
+  /* HISTORY */
+  .history{ background:linear-gradient(180deg,var(--ink-2),var(--ink)); }
+  .timeline{ margin-top:3rem; border-left:1px solid var(--line); padding-left:2.4rem; }
+  .tl{ position:relative; padding-bottom:2.4rem; }
+  .tl::before{ content:""; position:absolute; left:calc(-2.4rem - 5px); top:6px; width:9px; height:9px; border-radius:50%; background:var(--signal); box-shadow:0 0 0 4px rgba(52,224,196,.15); }
+  .tl .yr{ font-family:var(--display); font-size:1.3rem; color:var(--signal); }
+  .tl ul{ list-style:none; margin-top:.5rem; }
+  .tl ul li{ color:var(--steel); padding:.2rem 0; font-size:.95rem; }
+
+  /* CONTACT */
+  .contact{ background:var(--ink); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-top:3rem; }
+  .info-block{ border-top:1px solid var(--line); padding:1.4rem 0; }
+  .info-block .k{ font-family:var(--display); font-size:.74rem; letter-spacing:.18em; color:var(--signal); text-transform:uppercase; }
+  .info-block .v{ margin-top:.45rem; color:var(--white); font-size:1.02rem; }
+  .info-block .v small{ color:var(--steel); }
+  form .row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  form label{ display:block; font-size:.8rem; color:var(--steel); margin:1rem 0 .4rem; letter-spacing:.04em; }
+  form input, form textarea{
+    width:100%; background:var(--ink-2); border:1px solid var(--line); color:var(--white);
+    padding:.85rem 1rem; border-radius:3px; font-family:var(--body); font-size:.95rem; transition:.2s;
+  }
+  form input:focus, form textarea:focus{ outline:none; border-color:var(--signal); }
+  form textarea{ min-height:130px; resize:vertical; }
+  .form-note{ font-size:.78rem; color:var(--steel); margin-top:1rem; }
+
+  /* FOOTER */
+  footer{ background:#06101a; border-top:1px solid var(--line); padding:3.5rem 0 2.5rem; }
+  .foot{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:2rem; }
+  .foot .brand{ font-size:1.1rem; }
+  .foot p{ color:var(--steel); font-size:.84rem; max-width:340px; margin-top:1rem; }
+  .foot-links{ display:flex; gap:3rem; flex-wrap:wrap; }
+  .foot-links .col h5{ font-family:var(--display); font-size:.74rem; letter-spacing:.18em; color:var(--steel); text-transform:uppercase; margin-bottom:1rem; }
+  .foot-links .col a{ display:block; color:#b8c6d6; font-size:.9rem; padding:.25rem 0; transition:.2s; }
+  .foot-links .col a:hover{ color:var(--signal); }
+  .copyright{ margin-top:3rem; padding-top:1.6rem; border-top:1px solid var(--line); color:var(--steel); font-size:.8rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+
+  /* ===== Responsive ===== */
+  @media(max-width:900px){
+    .about-grid, .rnd-grid, .contact-grid{ grid-template-columns:1fr; gap:2.6rem; }
+    .cards{ grid-template-columns:1fr; }
+    .cert .grid{ grid-template-columns:repeat(2,1fr); }
+    .rnd-panel{ position:static; }
+    .radar{ opacity:.4; right:-260px; }
+  }
+  @media(max-width:680px){
+    nav ul, .nav-cta{ display:none; }
+    .burger{ display:flex; }
+    nav ul.open{ display:flex; position:absolute; top:72px; left:0; right:0; flex-direction:column; background:var(--ink-2); padding:1.4rem 24px; gap:1.2rem; border-bottom:1px solid var(--line); }
+    section{ padding:80px 0; }
+    form .row{ grid-template-columns:1fr; }
+    .cert .grid{ grid-template-columns:1fr; }
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="dot"></span>RADIOVILLE<small>레디오빌</small></a>
+    <nav>
+      <ul id="menu">
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#business">사업분야</a></li>
+        <li><a href="#rnd">기술·연구</a></li>
+        <li><a href="#cert">인증·실적</a></li>
+        <li><a href="#history">연혁</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">CONTACT</a>
+    <button class="burger" id="burger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <svg class="radar" viewBox="0 0 760 760" aria-hidden="true">
+    <circle class="ring" cx="380" cy="380" r="120"/>
+    <circle class="ring" cx="380" cy="380" r="220"/>
+    <circle class="ring hot" cx="380" cy="380" r="320"/>
+    <circle class="ring" cx="380" cy="380" r="375"/>
+    <line class="cross" x1="380" y1="5" x2="380" y2="755"/>
+    <line class="cross" x1="5" y1="380" x2="755" y2="380"/>
+    <g class="sweep">
+      <defs>
+        <linearGradient id="sw" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#34e0c4" stop-opacity="0"/>
+          <stop offset="1" stop-color="#34e0c4" stop-opacity=".5"/>
+        </linearGradient>
+      </defs>
+      <path d="M380 380 L380 5 A375 375 0 0 1 712 200 Z" fill="url(#sw)"/>
+      <line x1="380" y1="380" x2="380" y2="5" stroke="#34e0c4" stroke-width="2"/>
+    </g>
+    <circle class="blip" cx="520" cy="250" r="6"/>
+    <circle class="blip b2" cx="280" cy="540" r="5"/>
+    <circle class="blip b3" cx="560" cy="470" r="5"/>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <div class="tag">Navigation · Communication · Defense Electronics</div>
+    <h1>신호가 닿는 곳까지,<br><span class="accent">레디오빌</span>이 잇습니다.</h1>
+    <p class="sub">레디오빌(RADIOVILLE)은 항공우주·국방 분야의 항법, 통신, 정보통신기기 솔루션을 자체 기술로 개발·제조하는 방산 전문기업입니다.</p>
+    <div class="hero-actions">
+      <a href="#business" class="btn btn-primary">사업분야 보기 →</a>
+      <a href="#contact" class="btn btn-ghost">제휴·문의</a>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="wrap">
+      <div class="it"><b>20XX</b><span>설립연도 · EST.</span></div>
+      <div class="it"><b>3대</b><span>핵심 사업영역</span></div>
+      <div class="it"><b>XX+</b><span>등록 특허·인증</span></div>
+      <div class="it"><b>XXX명</b><span>임직원 / 연구인력</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <span class="eyebrow">About Radioville</span>
+      <h2 class="sec-title">정밀한 신호 위에<br><span class="ko">국가의 안전을 설계합니다</span></h2>
+      <p class="lead">레디오빌은 “보이지 않는 신호”를 다루는 기업입니다. 항법 데이터, 통신 링크, 임베디드 시스템 — 작전 환경에서 한 치의 오차도 허용하지 않는 영역에 집중합니다.</p>
+      <p class="body">우리는 핵심 부품의 설계부터 양산, 시험·평가, 야전 지원까지 전 주기를 자체적으로 수행합니다. 무기체계 통합에 필요한 신뢰성·내환경성을 확보하고, 국방 규격(MIL-STD)을 충족하는 솔루션을 공급합니다.</p>
+      <p class="body">민·군 겸용 기술로 사업영역을 확장하며, 항공우주·통신 인프라 분야에서 다음 세대의 표준을 함께 만들어 갑니다.</p>
+    </div>
+    <div class="reveal stat-grid">
+      <div class="stat"><b>100%</b><span>핵심 기술 자체 보유<br>(설계·양산·시험)</span></div>
+      <div class="stat"><b>MIL-STD</b><span>군용 규격 기반<br>신뢰성 검증 체계</span></div>
+      <div class="stat"><b>R&D</b><span>매출 대비 높은<br>연구개발 투자 비중</span></div>
+      <div class="stat"><b>24/7</b><span>야전·운용 단계<br>기술지원 체계</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS ===== -->
+<section class="business" id="business">
+  <div class="wrap">
+    <div class="biz-head reveal">
+      <div>
+        <span class="eyebrow">Business Areas</span>
+        <h2 class="sec-title">사업분야</h2>
+      </div>
+      <p>항법·통신·전자 핵심 역량을 기반으로, 무기체계와 인프라를 잇는 4개 영역에서 솔루션을 공급합니다.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <span class="num">01 / AEROSPACE</span>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l20-9-9 20-2-8-9-3z"/></svg>
+        <h3>항공우주 시스템</h3>
+        <p>유·무인 항공기 및 발사체에 탑재되는 항법·유도, 탑재전자장비(Avionics)와 보조장치를 개발·공급합니다.</p>
+        <ul><li>항법·유도</li><li>탑재전자장비</li><li>보조장치</li></ul>
+      </article>
+
+      <article class="card reveal">
+        <span class="num">02 / DEFENSE</span>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>
+        <h3>국방·방산 전자</h3>
+        <p>지상·함정 무기체계에 통합되는 사격통제, 데이터링크, 정밀 신호처리 모듈을 설계·양산합니다.</p>
+        <ul><li>사격통제</li><li>데이터링크</li><li>신호처리</li></ul>
+      </article>
+
+      <article class="card reveal">
+        <span class="num">03 / NAVIGATION</span>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M16 8l-5 2-2 5 5-2z"/></svg>
+        <h3>항법·통신 인프라</h3>
+        <p>위성항법(GNSS), 관성항법(INS), 시각동기 및 분배 장비 등 위치·시간 기준 인프라를 구축합니다.</p>
+        <ul><li>GNSS/INS</li><li>시각동기</li><li>5G/통신</li></ul>
+      </article>
+
+      <article class="card reveal">
+        <span class="num">04 / ICT</span>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        <h3>정보통신기기 제조</h3>
+        <p>고신뢰 임베디드 보드(PBA) 조립·생산과 통신 단말, 무역·소프트웨어 개발·운영을 수행합니다.</p>
+        <ul><li>PBA 양산</li><li>통신단말</li><li>SW/운영</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== R&D ===== -->
+<section class="rnd" id="rnd">
+  <div class="wrap">
+    <span class="eyebrow">R&D Capacity</span>
+    <h2 class="sec-title">기술이 곧 경쟁력입니다</h2>
+    <div class="rnd-grid">
+      <div class="rnd-list reveal">
+        <div class="rnd-item">
+          <div class="k">R1</div>
+          <div><h4>부설 연구소 운영</h4><p>항법·통신·임베디드 분야 전담 연구조직을 통해 핵심 알고리즘과 하드웨어를 자체 개발합니다.</p></div>
+        </div>
+        <div class="rnd-item">
+          <div class="k">R2</div>
+          <div><h4>시험·평가(T&E) 인프라</h4><p>내환경·내진동·EMI/EMC 등 군 규격 시험 설비를 갖춰 양산 전 신뢰성을 검증합니다.</p></div>
+        </div>
+        <div class="rnd-item">
+          <div class="k">R3</div>
+          <div><h4>국책 과제 수행</h4><p>정부·기관 연계 연구개발 과제를 통해 차세대 무기체계 기술을 선제적으로 확보합니다.</p></div>
+        </div>
+        <div class="rnd-item">
+          <div class="k">R4</div>
+          <div><h4>지식재산(IP) 포트폴리오</h4><p>특허·실용신안 등 IP를 체계적으로 관리하여 기술 독점성과 진입장벽을 강화합니다.</p></div>
+        </div>
+      </div>
+      <div class="rnd-panel reveal">
+        <h3>핵심 역량 지수</h3>
+        <div class="meter"><div class="lab"><span>항법 정밀도 / Navigation</span><span>95%</span></div><div class="bar"><i data-w="95%"></i></div></div>
+        <div class="meter"><div class="lab"><span>통신 신뢰성 / Comms Link</span><span>92%</span></div><div class="bar"><i data-w="92%"></i></div></div>
+        <div class="meter"><div class="lab"><span>임베디드 양산 / Manufacturing</span><span>88%</span></div><div class="bar"><i data-w="88%"></i></div></div>
+        <div class="meter"><div class="lab"><span>군 규격 신뢰성 / Reliability</span><span>97%</span></div><div class="bar"><i data-w="97%"></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CERT ===== -->
+<section class="cert" id="cert">
+  <div class="wrap">
+    <span class="eyebrow">Certifications & Track Record</span>
+    <h2 class="sec-title">인증·실적</h2>
+    <div class="grid">
+      <div class="c reveal"><div class="b">방산업체 지정</div><span>방위사업청 지정 업체</span></div>
+      <div class="c reveal"><div class="b">ISO 9001</div><span>품질경영시스템</span></div>
+      <div class="c reveal"><div class="b">ISO 14001</div><span>환경경영시스템</span></div>
+      <div class="c reveal"><div class="b">기업부설연구소</div><span>한국산업기술진흥협회 인정</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HISTORY ===== -->
+<section class="history" id="history">
+  <div class="wrap">
+    <span class="eyebrow">Milestones</span>
+    <h2 class="sec-title">연혁</h2>
+    <div class="timeline">
+      <div class="tl reveal"><div class="yr">2025–현재</div><ul>
+        <li>차세대 항법·통신 통합 솔루션 사업 확대</li>
+        <li>민·군 겸용 기술 신규 사업영역 진입</li>
+      </ul></div>
+      <div class="tl reveal"><div class="yr">2022–2024</div><ul>
+        <li>국책 연구개발 과제 다수 수행</li>
+        <li>주요 무기체계 양산 공급 계약 체결</li>
+      </ul></div>
+      <div class="tl reveal"><div class="yr">2018–2021</div><ul>
+        <li>기업부설연구소 설립 및 시험·평가 인프라 구축</li>
+        <li>방산업체 지정 / 품질·환경 인증 취득</li>
+      </ul></div>
+      <div class="tl reveal"><div class="yr">20XX</div><ul>
+        <li>레디오빌(RADIOVILLE) 설립</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h2 class="sec-title">제휴·문의</h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="info-block"><div class="k">Headquarters</div><div class="v">[ 본사 주소 입력 ]<br><small>대한민국</small></div></div>
+        <div class="info-block"><div class="k">Email</div><div class="v">contact@radioville.co.kr</div></div>
+        <div class="info-block"><div class="k">Tel</div><div class="v">[ 02-0000-0000 ]</div></div>
+        <div class="info-block"><div class="k">Business Hours</div><div class="v">평일 09:00 – 18:00 <small>(주말·공휴일 휴무)</small></div></div>
+      </div>
+      <div class="reveal">
+        <div class="row">
+          <div><label for="n">담당자명</label><input id="n" type="text" placeholder="홍길동" /></div>
+          <div><label for="o">기관/회사</label><input id="o" type="text" placeholder="소속" /></div>
+        </div>
+        <label for="e">이메일</label><input id="e" type="email" placeholder="you@company.com" />
+        <label for="m">문의 내용</label><textarea id="m" placeholder="제휴·구매·기술 문의 내용을 입력해 주세요."></textarea>
+        <div style="margin-top:1.4rem;"><button type="button" class="btn btn-primary" id="send">문의 보내기 →</button></div>
+        <p class="form-note">※ 이 양식은 데모용입니다. 실제 전송은 메일 연동(예: 이메일 서비스/폼 서비스) 설정 후 동작합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand"><span class="dot"></span>RADIOVILLE</div>
+        <p>레디오빌은 항법·통신·전자 핵심 기술로 항공우주와 국방을 잇는 방산 전문기업입니다.</p>
+      </div>
+      <div class="foot-links">
+        <div class="col"><h5>Company</h5><a href="#about">회사소개</a><a href="#history">연혁</a><a href="#cert">인증·실적</a></div>
+        <div class="col"><h5>Business</h5><a href="#business">사업분야</a><a href="#rnd">기술·연구</a></div>
+        <div class="col"><h5>Support</h5><a href="#contact">문의하기</a><a href="#top">맨 위로</a></div>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© 2026 RADIOVILLE Co., Ltd. All rights reserved.</span>
+      <span>레디오빌 · 사업자등록번호 [ 000-00-00000 ]</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 헤더 스크롤 효과
+  const hd = document.getElementById('hd');
+  addEventListener('scroll', () => hd.classList.toggle('scrolled', scrollY > 30));
+
+  // 모바일 메뉴
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  burger.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.addEventListener('click', e => { if(e.target.tagName==='A') menu.classList.remove('open'); });
+
+  // 스크롤 리빌
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        // 메터 애니메이션
+        en.target.querySelectorAll('.meter i').forEach(i => i.style.width = i.dataset.w);
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold:.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 데모 폼
+  document.getElementById('send').addEventListener('click', () => {
+    alert('데모 양식입니다. 실제 운영 시 이메일/폼 서비스 연동이 필요합니다.');
+  });
+</script>
+</body>
+</html>
